@@ -10,7 +10,8 @@ export const POST: RequestHandler = async ({ request }) => {
 	const { base64 } = await request.json();
 
 	const response = await openai.chat.completions.create({
-		model: 'gpt-4o-mini',
+		model: 'gpt-6-luna',
+		reasoning_effort: 'none',
 		messages: [
 			{
 				role: 'user',
@@ -42,33 +43,6 @@ export const POST: RequestHandler = async ({ request }) => {
 	const bookArrayString = response.choices[0].message.content?.replace(/```json|```/g, '').trim();
 
 	const bookArray = JSON.parse(bookArrayString || '[]');
-
-	// const bookArray = [
-	// 	{
-	// 		bookTitle: 'The most effective dog',
-	// 		author: 'M. Burkhart'
-	// 	},
-	// 	{
-	// 		bookTitle: 'RESILIENT ME',
-	// 		author: 'Sam Owen'
-	// 	},
-	// 	{
-	// 		bookTitle: 'The New Baby',
-	// 		author: 'M. K. Dorken'
-	// 	},
-	// 	{
-	// 		bookTitle: 'Black Box Thinking',
-	// 		author: 'Matthew Syed'
-	// 	},
-	// 	{
-	// 		bookTitle: 'Edinburgh',
-	// 		author: 'Unknown'
-	// 	},
-	// 	{
-	// 		bookTitle: 'New York City',
-	// 		author: 'Unknown'
-	// 	}
-	// ];
 
 	return json({
 		bookArray
